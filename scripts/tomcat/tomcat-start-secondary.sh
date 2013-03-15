@@ -26,6 +26,22 @@ urlToTest="http://localhost:8180/search/business_listings/Resorts%20in%20Goa"
 source $ELASTICBEANSTALK_APP_SCRIPT_DIR/include/include.sh
 
 
+if ([ -z "$tomcatPrimaryInstanceName" ]) then
+    echo "Error: Tomcat primary instance name is empty."
+    exit 1
+fi
+
+if ([ -z "$tomcatSecondaryInstanceName" ]) then
+    echo "Error: Tomcat secondary instance name is empty."
+    exit 1
+fi
+
+if ([ ! -e "$tomcatPrimaryInstanceDir" ]) then
+    echo "Error: Tomcat primary instance directory does not exist."
+    exit 1
+fi
+
+
 if ( ! $(exists $tomcatSecondaryInstanceDir/webapps/ROOT/*) ) then
     echo "Error: Did not find any valid file in the directory $tomcatSecondaryInstanceDir/webapps/ROOT/"
     echo "Run tomcat-copy-app-to-secondary.sh and try again."

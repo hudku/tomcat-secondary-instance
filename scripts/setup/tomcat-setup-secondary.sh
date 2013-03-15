@@ -23,6 +23,20 @@ tomcatSecondaryInstanceDir="/usr/share/$tomcatSecondaryInstanceName"
 source $ELASTICBEANSTALK_APP_SCRIPT_DIR/include/include.sh
 
 
+if ([ -z "$tomcatPrimaryInstanceName" ]) then
+    exit 1
+fi
+
+if ([ -z "$tomcatSecondaryInstanceName" ]) then
+    exit 1
+fi
+
+if ([ ! -e "$tomcatPrimaryInstanceDir" ]) then
+    echo "Error: Tomcat primary instance directory does not exist."
+    exit 1
+fi
+
+
 # Create a link to the existing init script file. The name used for the link becomes the name of the tomcat instance
 if ([ ! -e /etc/init.d/$tomcatSecondaryInstanceName ]) then
     ln -s /etc/init.d/$tomcatPrimaryInstanceName /etc/init.d/$tomcatSecondaryInstanceName

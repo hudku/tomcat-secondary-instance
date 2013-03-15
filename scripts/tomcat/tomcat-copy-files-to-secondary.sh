@@ -22,6 +22,22 @@ tomcatSecondaryInstanceDir="/usr/share/$tomcatSecondaryInstanceName"
 http8080Comment="HTTP 8080 Comment"
 
 
+if ([ -z "$tomcatPrimaryInstanceName" ]) then
+    echo "Error: Tomcat primary instance name is empty."
+    exit 1
+fi
+
+if ([ -z "$tomcatSecondaryInstanceName" ]) then
+    echo "Error: Tomcat secondary instance name is empty."
+    exit 1
+fi
+
+if ([ ! -e "$tomcatPrimaryInstanceDir" ]) then
+    echo "Error: Tomcat primary instance directory does not exist."
+    exit 1
+fi
+
+
 rm -rf $tomcatSecondaryInstanceDir/bin
 rm -rf $tomcatSecondaryInstanceDir/conf
 rm -rf $tomcatSecondaryInstanceDir/webapps
